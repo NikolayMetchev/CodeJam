@@ -1,15 +1,9 @@
 package com.metchevn.util.tree.redblack;
 
-import java.util.Iterator;
+import com.metchevn.util.tree.binary.ImmutableBinaryTree;
 
 
-public interface ImmutableRedBlackTree<T> extends Iterable<T>
+public interface ImmutableRedBlackTree<T, N extends ImmutableRedBlackNode<T>> extends ImmutableBinaryTree<T, N>
 {
-  ImmutableRedBlackNode<T> getRoot();
-  
-  int size();
-  
-  Iterable<ImmutableRedBlackNode<T>> immutableNodeIterable();
-  
-  Iterator<ImmutableRedBlackNode<T>> immutableNodeIterator();
+  //empty
 }

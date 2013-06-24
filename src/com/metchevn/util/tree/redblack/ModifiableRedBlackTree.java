@@ -1,25 +1,9 @@
 package com.metchevn.util.tree.redblack;
 
-import java.util.Collection;
-import java.util.Iterator;
+import com.metchevn.util.tree.binary.ModifiableBinaryTree;
 
 
-public interface ModifiableRedBlackTree<T, N extends ModifiableRedBlackNode<T, N>> extends ImmutableRedBlackTree<T>
+public interface ModifiableRedBlackTree<T, N extends ModifiableRedBlackNode<T, N>> extends ImmutableRedBlackTree<T, N>, ModifiableBinaryTree<T,N>
 {
-  @Override
-  N getRoot();
-  
-  boolean add(T e);
-  
-  boolean addAll(Collection<? extends T> values);
-  
-  boolean remove(Object payLoad);
-  
-  void clear();
-  
-  Iterable<N> nodeIterable();
-
-  Iterator<N> nodeIterator();
-  
-  Iterator<T> modifiableIterator();
+  //empty
 }
