@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.metchevn.util.interval.Interval;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -67,6 +65,7 @@ public class TestInterval
     assertTrue(interval.overlaps(3,true, 3, true));
     assertTrue(interval.overlaps(3,7));
     assertTrue(interval.overlaps(3,10));
+    assertTrue(interval.overlaps(1,8));
     
     assertFalse(interval.overlaps(7,true, 7, true));
     assertFalse(interval.overlaps(7,10));

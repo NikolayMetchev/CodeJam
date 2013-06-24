@@ -152,6 +152,15 @@ public class Interval<T extends Comparable<T>>
   {
     return m_toInclusive;
   }
+  
+//  public Interval<T> minus(Interval<T> other)
+//  {
+//    if(!overlaps(other))
+//    {
+//      return this;
+//    }
+//    return new Interval<T>(from, fromInclusive, to, toInclusive)
+//  }
 
   @Override
   public int hashCode()
