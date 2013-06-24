@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="N:/prod/risk-repl/noarch/guava/v14.0.1/guava-14.0.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="var" path="DRIVE/prod/risk-repl/noarch/jsr305/jsr305-1.3.9.jar"/>
+	<classpathentry kind="var" path="DRIVE/prod/risk-repl/noarch/hamcrest/v1.3/hamcrest-all-1.3.jar" sourcepath="/DRIVE/proj/risk/ext/noarch/hamcrest/v1.3/hamcrest-all-1.3-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
