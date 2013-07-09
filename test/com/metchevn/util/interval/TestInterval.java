@@ -1,8 +1,15 @@
 package com.metchevn.util.interval;
 
+import static java.util.Collections.singletonList;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -81,5 +88,53 @@ public class TestInterval
     assertEquals(interval1.intersection(3,4), interval2);
     assertEquals(interval1.intersection(3,10), new Interval<>(3,7));
     Assert.assertNull(interval1.intersection(0,1));
+  }
+  
+  @Test
+  public void testMinusNonOverlap() throws Exception
+  {
+    Interval<Integer> interval1 = new Interval<>(2,7);
+    Interval<Integer> interval2 = new Interval<>(8,10);
+
+    assertThat(interval1.minus(interval2), equalTo(singletonList(interval1)));
+  }
+  
+  @Test
+  public void testMinusCase1() throws Exception
+  {
+    Interval<Integer> interval1 = new Interval<>(2,7);
+    Interval<Integer> interval2 = new Interval<>(1,4);
+    
+    assertThat(interval1.minus(interval2), equalTo(singletonList(new Interval<>(4,true,7,false))));
+  }
+  
+  @Test
+  public void testMinusCase2() throws Exception
+  {
+    Interval<Integer> interval1 = new Interval<>(2,7);
+    Interval<Integer> interval2 = new Interval<>(1,8);
+
+    assertThat(interval1.minus(interval2), is(empty()));
+  }
+  
+  @Test
+  public void testMinusCase3() throws Exception
+  {
+    Interval<Integer> interval1 = new Interval<>(2,7);
+    Interval<Integer> interval2 = new Interval<>(4,8);
+
+    assertThat(interval1.minus(interval2), equalTo(singletonList(new Interval<>(2,true,4,false))));
+  }
+  
+  @Test
+  public void testMinusCase4() throws Exception
+  {
+    Interval<Integer> interval1 = new Interval<>(2,7);
+    Interval<Integer> interval2 = new Interval<>(4,6);
+
+    assertThat(interval1.minus(interval2), equalTo(Arrays.asList(
+        new Interval<>(2,true,4,false),
+        new Interval<>(6,true,7,false)
+        )));
   }
 }

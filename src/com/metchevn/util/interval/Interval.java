@@ -2,6 +2,10 @@ package com.metchevn.util.interval;
 
 import com.google.common.collect.Ordering;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Interval<T extends Comparable<T>>
 {
   private final Ordering<T> NATURAL_ORDERING = Ordering.natural();
@@ -153,14 +157,56 @@ public class Interval<T extends Comparable<T>>
     return m_toInclusive;
   }
   
-//  public Interval<T> minus(Interval<T> other)
-//  {
-//    if(!overlaps(other))
-//    {
-//      return this;
-//    }
-//    return new Interval<T>(from, fromInclusive, to, toInclusive)
-//  }
+  public List<Interval<T>> minus(Interval<T> other)
+  {
+    if(!overlaps(other))
+    {
+      return Collections.singletonList(this);
+    }
+    boolean otherFromBefore = isBefore(other.m_from, m_from, other.m_fromInclusive && m_fromInclusive);
+    boolean otherFromAfter = isAfter(other.m_from, m_from, other.m_fromInclusive && m_fromInclusive);
+    boolean otherToBefore = isBefore(other.m_to, m_to, other.m_toInclusive && m_toInclusive);
+    boolean otherToAfter = isAfter(other.m_to, m_to, other.m_toInclusive && m_toInclusive);
+    
+    //Case 1
+    //     |-------|  this
+    // |------|       other
+    //        |----|  result
+    if (otherFromBefore && otherToBefore)
+    {
+      return Collections.singletonList(new Interval<>(other.m_to, !other.m_toInclusive, m_to, m_toInclusive));
+    }
+    
+    //Case 2
+    //     |-------|     this
+    // |---------------| other
+    //                   result
+    if (otherFromBefore && otherToAfter)
+    {
+      return Collections.emptyList();
+    }
+    
+    //Case 3
+    // |-------|     this
+    //      |------| other
+    // |----|        result
+    if (otherFromAfter && otherToAfter)
+    {
+      return Collections.singletonList(new Interval<>(m_from, m_fromInclusive, other.m_from, !other.m_fromInclusive));
+    }
+    
+    //Case 4
+    // |------------|  this
+    //      |---|      other
+    // |----|   |---|  result
+    if (otherFromAfter && otherToBefore)
+    {
+      return Arrays.asList(new Interval<>(m_from, m_fromInclusive, other.m_from, !other.m_fromInclusive),
+                           new Interval<>(other.m_to, !other.m_toInclusive, m_to, m_toInclusive));
+    }
+    
+    throw new RuntimeException("Logic Error.. what did I miss?");
+  }
 
   @Override
   public int hashCode()
@@ -208,6 +254,6 @@ public class Interval<T extends Comparable<T>>
   @Override
   public String toString()
   {
-    return "[" + m_from + "," + m_to + "]";
+    return "[" + m_from + "," + m_fromInclusive + ","+ m_to + "," + m_toInclusive + "]";
   }
 }
