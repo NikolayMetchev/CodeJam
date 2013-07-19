@@ -1,0 +1,14 @@
+b = bet ammount
+w = number of bets
+m = winning slots
+p = prob of winning
+e = expected profit
+x = expected winnings
+
+p = w / m
+
+x = b*p*36 = b*w*36/m
+
+e  = x - b*w = b*w*36/m - b*w = b * w * (36/m - 1)
+
+w = m => e = 36*b - w
